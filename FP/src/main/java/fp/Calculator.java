@@ -77,9 +77,34 @@ public class Calculator {
 	 * Toma como parÃ¡metros una cadena de caracteres y devuelve cierto si la cadena resulta ser un palÃ­ndromo
 	 */
 	public static boolean checkIsPalindrome(String cadena) {
-		throw  new NotImplementedException();
+		if(cadena==null)
+			return false;
+		String tildes = "áéíóúàèìòùäëïöüÁÉÍÓÚÀÈÌÒÙÄËÏÖÜñÑçÇ";
+		String sustituir= "aeiouaeiouaeiouAEIOUAEIOUAEIOUnNcC";
+		String simbolos = ",.:;¿?¡!";
+		char cad[]=new char[cadena.length()];
+		for(int i=0; i<cadena.length(); i++){
+			for(int j=0; j<simbolos.length(); j++){
+				cad[i]=cadena.charAt(i);
+				if(cad[i].isLetter())
+					j--;
+				cad[j]=cad[i];
+			}
+			for(int n=0; n<tildes.length(); n++){
+				if(cad[i]==tildes.charAt(n))
+					cad[i] = sustituir.charAt(n);
+				else
+					cad[i] = cad[i];
+			}
+		}
+		/*char intermedio;
+		int longitud = cadena.length;
+		for(int i=0; i<(longitud/2); i++){
+			intermedio = cadena[i];
+			cadena[i] = cadena[longitud-i-1];
+			cadena[longitud-i-1] = intermedio;*/
+		return true;
 	}
-
 	/*
 	 * Pedir un nÃºmero de 0 a 99 y mostrarlo escrito. Por ejemplo, para 56
 	 * mostrar: cincuenta y seis
@@ -87,19 +112,66 @@ public class Calculator {
 	public static String speakToMe(int n) {
 		throw  new NotImplementedException();
 	}
-
 	/*
 	 * este metodo devuelve cierto si el aÃ±o de la fecha es bisiesto fecha
 	 * dd-MM-yyyy
 	 */
 	public static boolean isLeapYear(String fecha) {
-		throw  new NotImplementedException();
+		int anio;
+		try {
+			anio = Integer.parseInt(fecha.substring(6));
+		}catch (NumberFormatException e) {
+			return false;
+		}catch(IndexOutOfBoundsException i){
+			return false;
+		}
+		if((anio%100)==0 && (anio%400)!=0)
+			return false;
+		if((anio%4)==0)
+			return true;
+		else
+			return false;
 	}
-
 	/*
 	 * este metodo devuelve cierto si la fecha es vÃ¡lida
 	 */
 	public static boolean isValidDate(String date) {
-		throw  new NotImplementedException();
+		int dia, mes, anio;
+		try{
+			//01-01-2001
+			dia=Integer.parseInt(date.substring(0, 2));
+			mes=Integer.parseInt(date.substring(3,5));
+			anio=Integer.parseInt(date.substring(6));
+		}catch (NumberFormatException e) {
+			return false;
+		}catch(IndexOutOfBoundsException i){
+			return false;
+		}
+		if(anio>0){
+			switch(mes){
+			case 1:
+			case 3:
+			case 5:
+			case 7:
+			case 8:
+			case 10:
+			case 12:
+				if(dia<=31 && dia>0)
+					return true;
+					break;
+			case 4:
+			case 6:
+			case 9:
+			case 11:
+				if(dia<=30 && dia>0)
+					return true;
+					break;
+			case 2:
+				if(dia<=28 && dia>0)
+					return true;
+					break;
+			}
+		}
+		return false;
 	}
 }
