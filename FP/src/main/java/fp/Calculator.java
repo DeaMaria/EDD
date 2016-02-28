@@ -79,38 +79,59 @@ public class Calculator {
 	public static boolean checkIsPalindrome(String cadena) {
 		if(cadena==null)
 			return false;
-		String tildes = "áéíóúàèìòùäëïöüÁÉÍÓÚÀÈÌÒÙÄËÏÖÜñÑçÇ";
-		String sustituir= "aeiouaeiouaeiouAEIOUAEIOUAEIOUnNcC";
-		String simbolos = ",.:;¿?¡!";
-		char cad[]=new char[cadena.length()];
-		for(int i=0; i<cadena.length(); i++){
-			for(int j=0; j<simbolos.length(); j++){
-				cad[i]=cadena.charAt(i);
-				if(cad[i].isLetter())
-					j--;
-				cad[j]=cad[i];
-			}
-			for(int n=0; n<tildes.length(); n++){
-				if(cad[i]==tildes.charAt(n))
-					cad[i] = sustituir.charAt(n);
+		cadena = cadena.toLowerCase();
+		String tildes = "áéíóúàèìòùäëïöüñãõâêîôûçÁÀÂÃÄÉÈËÊÍÌÎÏÓÒÖÔÕÚÙÛÜÑÇ";
+		String sustituir= "aeiouaeiouaeiounaoaeioucaaaaaeeeeiiiiooooouuuunc";
+		String nueva = "";
+		String inver="";
+		for (int i = 0; i < cadena.length(); i++){
+			if (Character.isLetter(cadena.charAt(i))) {
+				if (tildes.indexOf(cadena.charAt(i)) != -1)
+					nueva += sustituir.charAt(tildes.indexOf(cadena.charAt(i)));
 				else
-					cad[i] = cad[i];
+					nueva += cadena.charAt(i);
 			}
 		}
-		/*char intermedio;
-		int longitud = cadena.length;
-		for(int i=0; i<(longitud/2); i++){
-			intermedio = cadena[i];
-			cadena[i] = cadena[longitud-i-1];
-			cadena[longitud-i-1] = intermedio;*/
-		return true;
+		for (int i = cadena.length()-1; i>=0; i--)
+			inver+=cadena.charAt(i);
+		if(nueva.equals(inver))
+				return true;
+		else return false;
 	}
 	/*
 	 * Pedir un nÃºmero de 0 a 99 y mostrarlo escrito. Por ejemplo, para 56
 	 * mostrar: cincuenta y seis
 	 */
 	public static String speakToMe(int n) {
-		throw  new NotImplementedException();
+		String[] d = {"Cero","Diez","Veinte","Treinta","Cuarenta","Cincuenta",
+				  "Sesenta","Setenta","Ochenta","Noventa"};
+
+		  String[] u = {"","uno","dos","tres","cuatro","cinco","seis","siete",
+				  "ocho","nueve","Diez","Once","Doce","Trece","Catorce","Quince","Dieciseis",
+				  "Diecisiete","Dieciocho","Diecinueve"};
+
+		  String numero="";
+
+		  if(n==0){
+			  numero="";
+			  numero=d[0];
+			  return numero;
+		  }
+		  else if(n<20){
+			  numero="";
+			  numero=u[n];
+			  return numero;
+		  }
+		  else if((n%10)==0){
+			  numero="";
+			  numero=d[n/10];
+			  return numero;
+		  }
+		  else{
+			  numero="";
+			  numero=d[n/10]+" y "+u[n%10];
+			  return numero;
+		  }
 	}
 	/*
 	 * este metodo devuelve cierto si el aÃ±o de la fecha es bisiesto fecha
