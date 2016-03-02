@@ -77,14 +77,14 @@ public class Calculator {
 	 * Toma como parÃ¡metros una cadena de caracteres y devuelve cierto si la cadena resulta ser un palÃ­ndromo
 	 */
 	public static boolean checkIsPalindrome(String cadena) {
+		String tildes = "Ã¡Ã©Ã­Ã³ÃºÃ Ã¨Ã¬Ã²Ã¹Ã¤Ã«Ã¯Ã¶Ã¼Ã±Ã£ÃµÃ¢ÃªÃ®Ã´Ã»Ã§ÃÃ€Ã„ÃƒÃ‚Ã‰ÃˆÃ‹ÃŠÃÃŒÃÃÃ“Ã’Ã–Ã•Ã”ÃšÃ™ÃœÃ›Ã‘Ã‡";
+		String sustituir = "aeiouaeiouaeiounaoaeioucaaaaaeeeeiiiiooooouuuunc";
+		String nueva = "";
+		String inver = "";
 		if(cadena==null)
 			return false;
 		cadena = cadena.toLowerCase();
-		String tildes = "áéíóúàèìòùäëïöüñãõâêîôûçÁÀÂÃÄÉÈËÊÍÌÎÏÓÒÖÔÕÚÙÛÜÑÇ";
-		String sustituir= "aeiouaeiouaeiounaoaeioucaaaaaeeeeiiiiooooouuuunc";
-		String nueva = "";
-		String inver="";
-		for (int i = 0; i < cadena.length(); i++){
+		for(int i = 0; i < cadena.length(); i++){
 			if (Character.isLetter(cadena.charAt(i))) {
 				if (tildes.indexOf(cadena.charAt(i)) != -1)
 					nueva += sustituir.charAt(tildes.indexOf(cadena.charAt(i)));
@@ -92,8 +92,8 @@ public class Calculator {
 					nueva += cadena.charAt(i);
 			}
 		}
-		for (int i = cadena.length()-1; i>=0; i--)
-			inver+=cadena.charAt(i);
+		for(int i = nueva.length()-1; i>=0; i--)
+			inver += nueva.charAt(i);
 		if(nueva.equals(inver))
 				return true;
 		else return false;
