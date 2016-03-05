@@ -55,28 +55,29 @@ public class Calculator {
 	public static int[] divisors(int n) {
 		int largo=0;
 		if(n>0){
-			for(int i=1; i<=n; i++)
-				if(n%i==0)
+			for(int i=1; i<=n; i++){
+				if(n%i==0){
 					largo++;
-		}else return null;
-		int d[] = new int[largo];
-		try{
-			for (int i = n, j = 0; i > 0; i--) {
-				if(n % i == 0){
-					d[j] = i;
-					j++;
 				}
 			}
-			return d;
-		}catch(IndexOutOfBoundsException e){
-				return null;
+		}else return null;
+		int d[] = new int[largo];
+		for (int i = n, j = 0; i > 0; i--) {
+			if(n % i == 0){
+				d[j] = i;
+				j++;
+			}
 		}
+		return d;
 	}
 
 	/*
 	 * Toma como parámetros una cadena de caracteres y devuelve cierto si la cadena resulta ser un palíndromo
 	 */
 	public static boolean checkIsPalindrome(String cadena) {
+		return palindrome(cadena);
+	}
+	public static boolean palindrome(String cadena){
 		String tildes = "áéíóúàèìòùäëïöüñãõâêîôûçÁÀÄÃÂÉÈËÊÍÌÏÎÓÒÖÕÔÚÙÜÛÑÇ";
 		String sustituir = "aeiouaeiouaeiounaoaeioucaaaaaeeeeiiiiooooouuuunc";
 		String nueva = "";
@@ -86,17 +87,19 @@ public class Calculator {
 		cadena = cadena.toLowerCase();
 		for(int i = 0; i < cadena.length(); i++){
 			if (Character.isLetter(cadena.charAt(i))) {
-				if (tildes.indexOf(cadena.charAt(i)) != -1)
+				if (tildes.indexOf(cadena.charAt(i)) != -1){
 					nueva += sustituir.charAt(tildes.indexOf(cadena.charAt(i)));
-				else
+				}else{
 					nueva += cadena.charAt(i);
+				}
 			}
 		}
-		for(int i = nueva.length()-1; i>=0; i--)
+		for(int i = nueva.length()-1; i>=0; i--){
 			inver += nueva.charAt(i);
-		if(nueva.equals(inver))
+		}
+		if(nueva.equals(inver)){
 				return true;
-		else return false;
+		}else return false;
 	}
 	/*
 	 * Pedir un número de 0 a 99 y mostrarlo escrito. Por ejemplo, para 56
@@ -116,18 +119,15 @@ public class Calculator {
 			  numero="";
 			  numero=d[0];
 			  return numero;
-		  }
-		  else if(n<20){
+		  }else if(n<20){
 			  numero="";
 			  numero=u[n];
 			  return numero;
-		  }
-		  else if((n%10)==0){
+		  }else if((n%10)==0){
 			  numero="";
 			  numero=d[n/10];
 			  return numero;
-		  }
-		  else{
+		  }else{
 			  numero="";
 			  numero=d[n/10]+" y "+u[n%10];
 			  return numero;
@@ -159,7 +159,6 @@ public class Calculator {
 	public static boolean isValidDate(String date) {
 		int dia, mes, anio;
 		try{
-			//01-01-2001
 			dia=Integer.parseInt(date.substring(0, 2));
 			mes=Integer.parseInt(date.substring(3,5));
 			anio=Integer.parseInt(date.substring(6));
@@ -169,29 +168,12 @@ public class Calculator {
 			return false;
 		}
 		if(anio>0){
-			switch(mes){
-			case 1:
-			case 3:
-			case 5:
-			case 7:
-			case 8:
-			case 10:
-			case 12:
-				if(dia<=31 && dia>0)
-					return true;
-					break;
-			case 4:
-			case 6:
-			case 9:
-			case 11:
-				if(dia<=30 && dia>0)
-					return true;
-					break;
-			case 2:
-				if(dia<=28 && dia>0)
-					return true;
-					break;
-			}
+			if((dia<=31 && dia>0) && (mes==1 || mes==3 || mes==5 || mes==7 || mes==8 || mes==10 || mes==12))
+				return true;
+			else if((dia<=30 && dia>0) && (mes==4 || mes==6 || mes==9 || mes==11))
+				return true;
+			else if((dia<=28 && dia>0) && (mes==2))
+				return true;
 		}
 		return false;
 	}
