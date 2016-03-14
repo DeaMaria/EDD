@@ -26,7 +26,7 @@ public class Calculator {
 			if(i<2){
 				v.add(1);
 			}else{
-			v.add(v.get(i-1)+v.get(i-2));
+				v.add(v.get(i-1)+v.get(i-2));
 			}
 		return (v);
 	}
